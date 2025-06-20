@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Vé Máy Bay</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .info {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .info-left {
+            width: 60%;
+        }
+        .info-right {
+            width: 35%;
+            text-align: center;
+        }
+        .amount {
+            font-size: 1.3em;
+            color: green;
+            font-weight: bold;
+        }
+        .input-group {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        .input-group input, .input-group select {
+            padding: 5px;
+            width: 100%;
+            font-size: 1em;
+        }
+        .qr-code img {
+            width: 200px; /* Mã QR lớn hơn */
+            height: 200px; /* Mã QR lớn hơn */
+            border-radius: 10px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 40px;
+            color: #777;
+        }
+        .screenshot-button {
+            margin-top: 20px;
+            display: block;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .screenshot-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="paymentContainer">
+    <h1>Thanh Toán Vé Máy Bay</h1>
+
+    <!-- Phần nhập thông tin thanh toán -->
+    <div class="info">
+        <!-- Thông tin bên trái -->
+        <div class="info-left">
+            <div class="input-group">
+                <label for="accountName">Tên tài khoản:</label>
+                <input type="text" id="accountName" value="CONG TY TNHH TM OGP DONG TAY">
+            </div>
+            <div class="input-group">
+                <label for="amount">Số tiền:</label>
+                <input type="text" id="amount" value="2,528,000 VNĐ">
+            </div>
+            <div class="input-group">
+                <label for="description">Nội dung:</label>
+                <input type="text" id="description" value="VJ6O5KT004 (Copy)">
+            </div>
+            <div class="input-group">
+                <label for="bankSelect">Ngân hàng:</label>
+                <select id="bankSelect">
+                    <option value="VPBank">VPBank - TMCP Việt Nam Thịnh Vượng</option>
+                    <option value="ACB">ACB - Ngân hàng Á Châu</option>
+                    <option value="BIDV">BIDV - Ngân hàng Đầu tư và Phát triển Việt Nam</option>
+                    <option value="MB">MB - Ngân hàng Quân đội</option>
+                    <option value="VCB">VCB - Ngân hàng Vietcombank</option>
+                    <option value="VIB">VIB - Ngân hàng VietinBank</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="accountNumber">Số tài khoản:</label>
+                <input type="text" id="accountNumber" value="412567331">
+            </div>
+        </div>
+
+        <!-- Mã QR bên phải -->
+        <div class="info-right">
+            <div class="qr-code">
+                <p><strong>Mã QR thanh toán:</strong></p>
+                <img id="qrCodeImage" src="https://img.vietqr.io/image/VPBank-412567331-vietqr_net.png" alt="QR Code">
+            </div>
+        </div>
+    </div>
+
+    <!-- Chụp ảnh màn hình -->
+    <button class="screenshot-button" id="screenshotBtn">Chụp ảnh màn hình</button>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 Công ty XYZ. Tất cả quyền được bảo vệ.</p>
+    </div>
+</div>
+
+<!-- Thêm thư viện html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+<script>
+    // Hàm tạo mã QR từ thông tin người dùng nhập vào
+    function updateQRCode() {
+        var accountName = document.getElementById('accountName').value;
+        var amount = document.getElementById('amount').value;
+        var description = document.getElementById('description').value;
+        var bank = document.getElementById('bankSelect').value;
+        var accountNumber = document.getElementById('accountNumber').value;
+
+        // Tạo thông tin thanh toán
+        var paymentInfo = 'bank=' + bank + '&account=' + accountNumber + '&amount=' + amount + '&note=' + description;
+
+        // Tạo mã QR VietQR từ thông tin thanh toán
+        var qrCodeURL = 'https://img.vietqr.io/image/' + bank + '-' + accountNumber + '-vietqr_net.png?' + paymentInfo;
+
+        // Cập nhật mã QR
+        document.getElementById('qrCodeImage').src = qrCodeURL;
+    }
+
+    // Gọi hàm cập nhật mã QR khi trang được tải
+    updateQRCode();
+
+    // Cập nhật mã QR khi người dùng thay đổi thông tin
+    document.getElementById('accountName').addEventListener('input', updateQRCode);
+    document.getElementById('amount').addEventListener('input', updateQRCode);
+    document.getElementById('description').addEventListener('input', updateQRCode);
+    document.getElementById('bankSelect').addEventListener('change', updateQRCode);
+    document.getElementById('accountNumber').addEventListener('input', updateQRCode);
+
+    // Hàm chụp ảnh màn hình
+    document.getElementById('screenshotBtn').addEventListener('click', function() {
+        html2canvas(document.getElementById("paymentContainer")).then(function(canvas) {
+            // Tạo ảnh từ canvas và lưu ảnh dưới dạng PNG
+            var link = document.createElement('a');
+            link.href = canvas.toDataURL("image/png");
+            link.download = 'payment-screenshot.png';
+            link.click();
+        });
+    });
+</script>
+
+</body>
+</html>

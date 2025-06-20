@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.info-left {
+    width: 60%;
+    margin-right: 20px;
+}
+
+.info-right {
+    width: 35%;
+    text-align: center;
+}
+
+.input-group {
+    margin: 15px 0;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.amount {
+    font-size: 1.4em;
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.qr-code img {
+    width: 250px; /* Mã QR lớn hơn */
+    height: 250px; /* Mã QR lớn hơn */
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.screenshot-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.screenshot-button:hover {
+    background-color: #45a049;
+}
+
+.footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .info-left,
+    .info-right {
+        width: 100%;
+    }
+
+    .qr-code img {
+        width: 200px;
+        height: 200px;
+    }
+}
